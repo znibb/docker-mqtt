@@ -20,9 +20,9 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./data/:/mosquitto/data/
-      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
-      - ./mosquitto.log:/mosquitto/log/mosquitto.log
-      - ./mosquitto.passwd:/mosquitto/config/mosquitto.passwd
+      - ./files/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./files/mosquitto.log:/mosquitto/log/mosquitto.log
+      - ./files/mosquitto.passwd:/mosquitto/config/mosquitto.passwd
 
 networks:
   traefik:
