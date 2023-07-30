@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  mqtt:
+    image: eclipse-mosquitto:2.0.15-openssl
+    container_name: mqtt
+    hostname: mqtt.${DOMAIN_NAME}
+    restart: unless-stopped
+    env_file: .env
+    labels:
+      - traefik.enable=true
+      - traefik.tcp.routers.mqtt.rule=HostSNI(`mqtt.${DOMAIN_NAME}`)
+      - traefik.tcp.routers.mqtt.entrypoints=mqtt
+      - traefik.tcp.routers.mqtt.tls=true
+      - traefik.tcp.routers.mqtt.tls.certresolver=cloudflare
+      - traefik.tcp.routers.mqtt.service=mqtt
+      - traefik.tcp.services.mqtt.loadBalancer.server.port=1883
+    networks:
+      - traefik
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./data/:/mosquitto/data/
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./mosquitto.log:/mosquitto/log/mosquitto.log
+      - ./mosquitto.passwd:/mosquitto/config/mosquitto.passwd
+
+networks:
+  traefik:
+    external:
+      name: traefik
