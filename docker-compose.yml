@@ -5,6 +5,7 @@ services:
     image: eclipse-mosquitto:2.0.15-openssl
     container_name: mqtt
     hostname: mqtt.${DOMAIN_NAME}
+    user: ${PUID}:${GUID}
     restart: unless-stopped
     env_file: .env
     labels:
