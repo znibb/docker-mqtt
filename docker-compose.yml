@@ -1,11 +1,8 @@
-version: "3"
-
 services:
   mqtt:
     image: eclipse-mosquitto:2.0.15-openssl
     container_name: mqtt
-    hostname: mqtt.${DOMAIN_NAME}
-    user: ${PUID}:${GUID}
+    user: ${PUID?}:${GUID?}
     restart: unless-stopped
     healthcheck:
       test: ping -c 1 www.google.com || exit 1
@@ -15,11 +12,10 @@ services:
     env_file: .env
     labels:
       - traefik.enable=true
-      - traefik.tcp.routers.mqtt.rule=HostSNI(`mqtt.${DOMAIN_NAME}`)
+      - traefik.tcp.routers.mqtt.rule=HostSNI(`mqtt.${TRAEFIK_DOMAIN?}`)
       - traefik.tcp.routers.mqtt.entrypoints=mqtt
       - traefik.tcp.routers.mqtt.tls=true
       - traefik.tcp.routers.mqtt.tls.certresolver=cloudflare
-      - traefik.tcp.routers.mqtt.service=mqtt
       - traefik.tcp.services.mqtt.loadBalancer.server.port=1883
     networks:
       - traefik
@@ -32,5 +28,4 @@ services:
 
 networks:
   traefik:
-    external:
-      name: traefik
+    external: true
