@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ ! -f .env ]; then
-  cp ./files/.env.example .env
+  cp -v ./files/.env.example .env
 fi
 if [ ! -f files/mosquitto.log ]; then
   touch ./files/mosquitto.log
