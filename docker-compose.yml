@@ -9,8 +9,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    env_file:
-      - .env
     labels:
       - traefik.enable=true
       - traefik.tcp.routers.mqtt.rule=HostSNI(`mqtt.${TRAEFIK_DOMAIN:?}`)
