@@ -1,6 +1,6 @@
 services:
   mqtt:
-    image: eclipse-mosquitto:2.0.15-openssl
+    image: eclipse-mosquitto:2.0.18-openssl
     container_name: mqtt
     user: ${PUID:?}:${GUID:?}
     restart: unless-stopped
@@ -24,7 +24,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./data/:/mosquitto/data/
       - ./files/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
-      - ./files/mosquitto.log:/mosquitto/log/mosquitto.log
       - ./files/mosquitto.passwd:/mosquitto/config/mosquitto.passwd
 
 networks:
