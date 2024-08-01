@@ -1,0 +1,3 @@
+data/mosquitto.db
+files/mosquitto.passwd
+.env
