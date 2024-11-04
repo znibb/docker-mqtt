@@ -1,6 +1,6 @@
 services:
   mqtt:
-    image: eclipse-mosquitto:2.0.18-openssl
+    image: eclipse-mosquitto:2.0.20-openssl
     container_name: mqtt
     user: ${PUID:?}:${GUID:?}
     restart: unless-stopped
